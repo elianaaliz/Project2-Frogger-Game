@@ -31,7 +31,7 @@ Puedes jugar una demo aquí(http://funhtml5games.com/?play=frogger)
   pantalla principal.
 
 
-El juego implementado se aloja en Github Pages [Frogger-Game](https://elianaaliz.github.io/Project2-Frogger-Game/).
+El juego implementado se aloja en Github Pages [Frogger-Game]().
 
 ## Autor@
 ###  *Eliana Aliz Chuquillanqui Julcapari
