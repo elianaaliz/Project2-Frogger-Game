@@ -12,7 +12,6 @@ trunk2: {sx: 9,sy: 123,w: 191,h: 42,frames: 1},
 trunk3: {sx: 270,sy: 172,w: 130,h: 42,frames: 1},
 turtle: {sx: 5, sy: 288, w: 51, h: 45, frames: 5},
 death: {sx: 211,sy: 128,w: 48,h: 38,frames: 4},
-
 };
 
 var spawnObjects = {
@@ -100,6 +99,7 @@ Spawner.prototype.step = function(dt) {
   }
 };
 
+//Level
 var LevelFrogger = function(levelData) {
   this.levelData = levelData;
   this.it = 0;
@@ -133,9 +133,9 @@ var Frog = function() {
   this.x = this.CENTER_POINT.x;
   this.y = this.CENTER_POINT.y;
   this.lifes = Game.lives;
-  this.jumping = 0;
+  this.jumping = 0;	
   this.subFrame = 0;
-  this.angle = 0;
+  this.angle = 0;	//angulo
 }
 
 Frog.prototype = new Sprite();
