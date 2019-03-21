@@ -16,16 +16,16 @@ death: {sx: 211,sy: 128,w: 48,h: 38,frames: 4},
 };
 
 var spawnObjects = {
-  car1: {sprite: 'car1',row: 1,speed: 100},
-  car2: {sprite: 'car2',row: 2,speed: -70},
-  car3: {sprite: 'car3',row: 3,speed: -110},
-  car4: {sprite: 'car4',row: 4,speed: 200},
-  car5: {sprite: 'car5',row: 5,speed: -150},
-  trunk1: {sprite: 'trunk1',row: 0,speed: -70},
-  trunk2: {sprite: 'trunk2',row: 4,speed: 60},
-  trunk3: {sprite: 'trunk3',row: 2,speed: -220},
-  turtle: {row: 1,speed: 110},
-  turtle2: {row: 3,speed: 110}
+  car1: {sprite: 'car1',row: 1,speed: 200},
+  car2: {sprite: 'car2',row: 2,speed: -160},
+  car3: {sprite: 'car3',row: 3,speed: -210},
+  car4: {sprite: 'car4',row: 4,speed: 100},
+  car5: {sprite: 'car5',row: 5,speed: -250},
+  trunk1: {sprite: 'trunk1',row: 0,speed: -130},
+  trunk2: {sprite: 'trunk2',row: 4,speed: 150},
+  trunk3: {sprite: 'trunk3',row: 2,speed: -110},
+  turtle: {row: 1,speed: 70},
+  turtle2: {row: 3,speed: 70}
 };
 
 var FROG = 1,
