@@ -202,7 +202,7 @@ var GameBoard = function() {
     this.cnt[obj.type] = (this.cnt[obj.type] || 0) + 1;
     this.objects.sort(function(a, b) {
       return a.zIndex - b.zIndex;
-    }); //necesario?
+    }); //para ordenar el orden de los objetos
     return obj; 
   };
 
