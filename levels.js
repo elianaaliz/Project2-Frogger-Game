@@ -1,3 +1,4 @@
+//Level del juego Alien invasors
 var level1 = [
  // Start,    End, Gap,  Type,   Override
   [ 0,       4000, 500, 'step' ],
