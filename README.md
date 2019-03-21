@@ -16,13 +16,14 @@ Puedes jugar una demo aquí(http://funhtml5games.com/?play=frogger)
 - Coches(los cuales se mueven a velocidades variadas).
 - Troncos(los cuales se mueven a velocidades variadas).
 - Tortugas(los cuales se mueven a velocidades variadas).
-- Colisiones de la rana con el Agua y los Coches que podrían considerarse 
+- Colisiones de la rana con el Agua(Water) y los Coches que podrían considerarse 
   como enemigos, cada vez que colisione con ellos muere.
 - Animación de la muerte.
+- Meta de partida(Home), si llega hasta el otro extremo es el ganador.
 - Generador de coches, troncos y tortugas.
 - Menú Pantalla inicial, de partida perdida, de partida ganada.
 
-### Mecánicas extras
+### Ampliaciones
 - Animación de la rana.
 - Animación de las tortugas.
 - Juego con 3 vidas, luego de perderlas recien pierdes toda la partida.
