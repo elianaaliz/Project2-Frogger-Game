@@ -1,4 +1,5 @@
 var sprites = {
+game: {sx: 8, sy: 395, w: 411, h: 161, frames: 1},
 bg: {sx: 421,sy: 0,w: 423,h: 623,frames: 1}, 
 frog: {sx: 80,sy: 343,w: 38,h: 48,frames: 1},
 car1: {sx: 8,sy: 4,w: 96,h: 48,frames: 1},
@@ -114,7 +115,7 @@ Frog.prototype.onTurtle = function(vt) {
 
 
 Frog.prototype.hit = function() {
-  //Game.lives--;
+  Game.lives--;
   if (this.board.remove(this)) {
       this.board.add(new Death(this));
   }
@@ -269,10 +270,13 @@ Death.prototype.step = function(dt) {
     }
     if(this.frame >= 4) {
       this.board.remove(this);
-      if(!this.end){
-      loseGame();
-      }
-      this.end = true;
+      if (!this.end)
+            if (Game.lives <= 0) {
+                loseGame();
+            } else {
+                this.board.add(new Frog());
+            }
+        this.end = true;
     }
     
 };
