@@ -1,37 +1,38 @@
-## Welcome to GitHub Pages
+# Frogger (Práctica 2 de DVI)
 
-You can use the [editor on GitHub](https://github.com/elianaaliz/Project2-Frogger-Game/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Frogger es un videojuego clásico, de género arcade, publicado por Sega en 1981. 
+El objetivo del juego es guiar una rana hasta su hogar. Para hacerlo, la rana debe evitar
+coches mientras cruza una carretera congestionada y luego cruzar un río lleno de peligros.
+Las principales mecánicas están descritas en esta página y algunas mejoras extras.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Puedes jugar una demo aquí(http://funhtml5games.com/?play=frogger) 
 
-### Markdown
+## Desarrollo del juego
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Mecánicas implementadas
 
-```markdown
-Syntax highlighted code block
+- Escenario de fondo.
+- Movimiento de la rana.
+- Coches(los cuales se mueven a velocidades variadas).
+- Troncos(los cuales se mueven a velocidades variadas).
+- Tortugas(los cuales se mueven a velocidades variadas).
+- Colisiones de la rana con el Agua y los Coches que podrían considerarse 
+  como enemigos, cada vez que colisione con ellos muere.
+- Animación de la muerte.
+- Generador de coches, troncos y tortugas.
+- Menú Pantalla inicial, de partida perdida, de partida ganada.
 
-# Header 1
-## Header 2
-### Header 3
+### Mecánicas extras
+- Animación de la rana.
+- Animación de las tortugas.
+- Juego con 3 vidas, luego de perderlas recien pierdes toda la partida.
+- Se ha agregado el titulo del nombre del juego de sprite a la 
+  pantalla principal.
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+El juego implementado se aloja en Github Pages [Frogger-Game](https://elianaaliz.github.io/Project2-Frogger-Game/).
 
-**Bold** and _Italic_ and `Code` text
+## Autor@
+###  Eliana Aliz Chuquillanqui Julcapari
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/elianaaliz/Project2-Frogger-Game/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Repositorio de esta prática(https://github.com/elianaaliz/Project2-Frogger-Game)
