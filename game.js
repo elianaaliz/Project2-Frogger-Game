@@ -17,7 +17,6 @@ var startGame = function() {
 [3,new Trunk(spawnObjects.trunk1.sprite,spawnObjects.trunk1.row, spawnObjects.trunk1.speed)],
 [2,new Trunk(spawnObjects.trunk2.sprite,spawnObjects.trunk2.row, spawnObjects.trunk2.speed)],
 [3,new Trunk(spawnObjects.trunk3.sprite,spawnObjects.trunk3.row, spawnObjects.trunk1.speed)],
-
 [2,new Turtle(spawnObjects.turtle.row, spawnObjects.turtle.speed)],
 [2.5,new Turtle(spawnObjects.turtle2.row, spawnObjects.turtle2.speed)]
 ];
