@@ -64,7 +64,7 @@ var Game = new function() {
       oldtimestamp = timestamp;
 
       // Cada pasada borramos el canvas
-      Game.ctx.fillStyle = "#000";
+      Game.ctx.fillStyle = "#cc99ff";
       Game.ctx.fillRect(0,0,Game.width,Game.height);
 
       // y actualizamos y dibujamos todas las entidades
@@ -171,7 +171,7 @@ var TitleScreen = function TitleScreen(title,subtitle,callback) {
   };
 
   this.draw = function(ctx) {
-    ctx.fillStyle = "#7CFC00";
+    ctx.fillStyle = "#009933";
     ctx.textAlign = "center";
 
     ctx.font = "bold 40px bangers";
