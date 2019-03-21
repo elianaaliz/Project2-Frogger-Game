@@ -24,7 +24,7 @@ var Game = new function() {
 
 
   // le asignamos un nombre lógico a cada tecla que nos interesa
-  var KEY_CODES = { 37:'left', 39:'right', 38:'up', 40:'down',32 :'fire' };
+  var KEY_CODES = { 37:'left', 39:'right', 38:'up', 40:'down',32 :'space' };
 
   this.keys = {};
 
@@ -166,8 +166,8 @@ var TitleScreen = function TitleScreen(title,subtitle,callback) {
   var up = false;
 
   this.step = function(dt) {
-    if( ! Game.keys['fire'] ) up = true;
-    if( up && Game.keys['fire'] && callback ) callback();
+    if( ! Game.keys['space'] ) up = true;
+    if( up && Game.keys['space'] && callback ) callback();
   };
 
   this.draw = function(ctx) {
