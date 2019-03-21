@@ -1,25 +1,17 @@
 var sprites = {
 game: {sx: 8, sy: 395, w: 411, h: 161, frames: 1},
 bg: {sx: 421,sy: 0,w: 423,h: 623,frames: 1}, 
-frog: {sx: 80,sy: 343,w: 38,h: 48,frames: 1},
+frog: {sx: -1,sy: 339,w: 40,h: 48,frames: 7},
 car1: {sx: 8,sy: 4,w: 96,h: 48,frames: 1},
 car2: {sx: 109,sy: 4,w: 96,h: 48,frames: 1},
 car3: {sx: 213,sy: 4,w: 96,h: 48,frames: 1},
-car4: {sx: 7,sy: 62,w: 125,h: 48,frames: 1},
+car4: {sx: 7,sy: 62,w: 125,h: 48,frames: 1}, 
 car5: {sx: 148,sy: 62,w: 200,h: 48,frames: 1},
 trunk1: {sx: 9,sy: 172,w: 247,h: 42,frames: 1},
 trunk2: {sx: 9,sy: 123,w: 191,h: 42,frames: 1},
 trunk3: {sx: 270,sy: 172,w: 130,h: 42,frames: 1},
-turtle: {sx: 7,sy: 288,w: 46,h: 45,frames: 1},
+turtle: {sx: 5, sy: 288, w: 51, h: 45, frames: 5},
 death: {sx: 211,sy: 128,w: 48,h: 38,frames: 4},
-//Galaga
- //ship: { sx: 0, sy: 0, w: 38, h: 43, frames: 3 },
- //missile: { sx: 0, sy: 42, w: 7, h: 20, frames: 1 },
- //enemy_purple: { sx: 37, sy: 0, w: 42, h: 43, frames: 1 },
- //enemy_bee: { sx: 79, sy: 0, w: 37, h: 43, frames: 1 },
- //enemy_ship: { sx: 116, sy: 0, w: 42, h: 43, frames: 1 },
- //enemy_circle: { sx: 158, sy: 0, w: 32, h: 33, frames: 1 },
- //explosion: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 },
 
 };
 
@@ -90,6 +82,7 @@ Spawner.prototype.step = function(dt) {
 //FROG
 var Frog = function() {
   this.setup('frog', {
+      frame: 0,
       reloadTime: 0.20,
       vx: 0,
       zIndex: 4
@@ -102,6 +95,10 @@ var Frog = function() {
   this.x = this.CENTER_POINT.x;
   this.y = this.CENTER_POINT.y;
   this.lifes = Game.lives;
+  this.jumping = 0;
+  this.subFrame = 0;
+  this.angle = 0;
+  //this.sprite = {sx: 0,sy: 339,w: 40,h: 48,frames: 7};
 }
 
 Frog.prototype = new Sprite();
@@ -122,8 +119,24 @@ Frog.prototype.hit = function() {
 
 };
 
+//Rotacion de la rana
+Frog.prototype.draw = function(ctx) {
+
+  var s = SpriteSheet.map[this.sprite];
+
+  if(!this.frame) this.frame = 0;
+
+  rotation = this.angle * Math.PI / 180;
+  ctx.save();
+  ctx.translate(this.x + s.w / 2, this.y + s.h / 2);
+  ctx.rotate(rotation);
+  ctx.drawImage(SpriteSheet.image, s.sx + this.frame * s.w, s.sy, s.w, s.h,-s.w / 2, -s.h / 2, s.w, s.h);
+  ctx.restore();
+
+};
+
 Frog.prototype.step = function(dt) {
-  //FUNCION AUXILIAR?
+
   if (this.board.collide(this, WATER) && 
       !this.board.collide(this, TRUNK) && 
         !this.board.collide(this, TURTLE)) {
@@ -138,15 +151,23 @@ Frog.prototype.step = function(dt) {
       if (Game.keys['up']) {
           this.reload = this.reloadTime;
           this.y -= this.h;
+          this.jumping = 1;
+          this.angle = 0;
       } else if (Game.keys['down']) {
           this.reload = this.reloadTime;
           this.y += this.h;
+          this.jumping = 1;
+          this.angle = 180;
       } else if (Game.keys['right'] && this.x + this.w <= Game.width - this.w) {
           this.reload = this.reloadTime;
           this.x += this.w;
+          this.jumping = 1;
+          this.angle = 90;
       } else if (Game.keys['left'] && this.x - this.w >= 0) {
           this.reload = this.reloadTime;
           this.x -= this.w;
+          this.jumping = 1;
+          this.angle = 270;
       }
 
 
@@ -156,7 +177,24 @@ Frog.prototype.step = function(dt) {
       else if (this.x > Game.width - this.w) this.x = Game.width - this.w;
   }
       this.vx = 0;
+
+      if(this.jumping === 1) {
+        /*if (this.frame > 1/5) {
+          this.frame -= 1/5;
+          this.frame++;
+        }*/
+        //this.jumping = 0;
+        this.frame = Math.floor(this.subFrame++);
+        if(this.subFrame > 6) {
+          this.subFrame = 0;
+          this.jumping = 0;
+        }
+      } 
 };
+
+
+
+
 
 //Car
 
@@ -211,6 +249,8 @@ Trunk.prototype.step = function(dt) {
 var Turtle = function(row, speed) {
 
   this.setup('turtle', {
+      frame: 0,
+      subFrame: 0,
       zIndex: 1
   });
   this.xVel = speed;
@@ -222,13 +262,19 @@ Turtle.prototype = new Sprite();
 Turtle.prototype.type = TURTLE;
 Turtle.prototype.step = function(dt) {
   this.x += this.xVel * dt;
-  if (this.x + this.width < 0 || this.x > Game.width)
-      this.board.remove(this);
 
-  var frog = this.board.collide(this, FROG);
-  if (frog){
-      frog.onTurtle(this.xVel);
-  }
+      if (this.x + this.width < 0 || this.x > Game.width)
+          this.board.remove(this);
+
+      var frog = this.board.collide(this, FROG);
+      if (frog){
+          frog.onTurtle(this.xVel);
+      }
+
+    this.frame = Math.floor(this.subFrame++ / 8);
+     if(this.subFrame > 36) {
+        this.subFrame = 0;
+     }
 };
 
 //WATER
@@ -243,7 +289,7 @@ var Water = function() {
 
 Water.prototype = new Sprite();
 Water.prototype.type = WATER;
-Water.prototype.draw = function() {};
+Water.prototype.draw = function() {}; //No se dibuja nada es invisible
 Water.prototype.step = function(dt) {};
 
 //Death
@@ -274,7 +320,7 @@ Death.prototype.step = function(dt) {
             if (Game.lives <= 0) {
                 loseGame();
             } else {
-                this.board.add(new Frog());
+                this.board.add(new Frog()); //hasta que gaste sus 3 vidas
             }
         this.end = true;
     }
@@ -298,7 +344,7 @@ Home.prototype.step = function(dt) {
   var col = this.board.collide(this, FROG);
   if (col && col.type === FROG) {
       this.t += dt;
-      if (this.t >= 0.5) {  //probar con otros numeros 
+      if (this.t >= 0.15) {  //probar con otros numeros 
         //arreglar lo de la rana
       //mide el tiempo al que tiene que reaccionar el objeto aunque de llegada
           this.board.remove(col);
