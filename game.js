@@ -3,7 +3,8 @@
 
 // Especifica lo que se debe pintar al cargar el juego
 var startGame = function() {
-  Game.setBoard(1,new TitleScreen("Frogger",
+  Game.setBoard(0,new TitleFrogger());
+  Game.setBoard(1,new TitleScreen("",
                                   "Press fire to start playing",
                                   playGame));
 }
@@ -19,9 +20,17 @@ var Background = function() {
 Background.prototype = new Sprite();
 Background.prototype.step = function(dt) {};
 
+var TitleFrogger = function() {
+  this.setup('game');
+
+  this.x = Game.width/2 - this.w/3;
+  this.y = Game.height/2 - this.h + 40;
+};
+TitleFrogger.prototype = new Sprite();
+TitleFrogger.prototype.step = function(dt){  }
 
 var playGame = function() {
-
+  Game.lives = 3;
   var boardBg = new GameBoard();
   boardBg.add(new Background());
   Game.setBoard(0, boardBg);
