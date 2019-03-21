@@ -24,7 +24,7 @@ var Game = new function() {
 
 
   // le asignamos un nombre lógico a cada tecla que nos interesa
-  var KEY_CODES = { 37:'left', 39:'right', 38:'up', 40:'down',32 :'space' };
+  var KEY_CODES = { 37:'left', 39:'right', 38:'up', 40:'down',32 :'fire' };
 
   this.keys = {};
 
@@ -64,7 +64,7 @@ var Game = new function() {
       oldtimestamp = timestamp;
 
       // Cada pasada borramos el canvas
-      Game.ctx.fillStyle = "#cc99ff";
+      Game.ctx.fillStyle = "#000";
       Game.ctx.fillRect(0,0,Game.width,Game.height);
 
       // y actualizamos y dibujamos todas las entidades
@@ -166,8 +166,8 @@ var TitleScreen = function TitleScreen(title,subtitle,callback) {
   var up = false;
 
   this.step = function(dt) {
-    if( ! Game.keys['space'] ) up = true;
-    if( up && Game.keys['space'] && callback ) callback();
+    if( ! Game.keys['fire'] ) up = true;
+    if( up && Game.keys['fire'] && callback ) callback();
   };
 
   this.draw = function(ctx) {
@@ -202,7 +202,7 @@ var GameBoard = function() {
     this.cnt[obj.type] = (this.cnt[obj.type] || 0) + 1;
     this.objects.sort(function(a, b) {
       return a.zIndex - b.zIndex;
-    }); //para ordenar el orden de los objetos
+    });
     return obj; 
   };
 
