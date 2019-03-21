@@ -62,9 +62,30 @@ Sprite.prototype.hit = function(damage) {
   this.board.remove(this);
 }
 
-var Spawner = function(lapse,elem) {
-  this.lapse = lapse;
-  this.obj = elem;
+var Background = function() {
+  this.setup('bg', {
+      zIndex: 0
+  });
+  this.x = 0;
+  this.y = 0;
+};
+
+Background.prototype = new Sprite();
+Background.prototype.step = function(dt) {};
+
+var TitleFrogger = function() {
+  this.setup('game');
+
+  this.x = Game.width/2 - this.w/3;
+  this.y = Game.height/2 - this.h + 40;
+};
+TitleFrogger.prototype = new Sprite();
+TitleFrogger.prototype.step = function(dt){  }
+
+
+var Spawner = function(objt) {
+  this.lapse = objt[0];
+  this.obj = objt[1];
   this.zIndex = 0;
   this.t = 0;
 }
@@ -78,6 +99,23 @@ Spawner.prototype.step = function(dt) {
       this.t -= this.lapse;
   }
 };
+
+var LevelFrogger = function(levelData) {
+  this.levelData = levelData;
+  this.it = 0;
+};
+
+LevelFrogger.prototype = new Sprite();
+LevelFrogger.prototype.draw = function() {};
+LevelFrogger.prototype.step = function(dt) {
+  if (this.it == 0) {
+      for (var i = 0; i < this.levelData.length; i++) {
+          this.board.add(new Spawner(this.levelData[i]));
+      }
+      this.it++;
+  }
+};
+
 
 //FROG
 var Frog = function() {
@@ -98,7 +136,6 @@ var Frog = function() {
   this.jumping = 0;
   this.subFrame = 0;
   this.angle = 0;
-  //this.sprite = {sx: 0,sy: 339,w: 40,h: 48,frames: 7};
 }
 
 Frog.prototype = new Sprite();
@@ -179,11 +216,6 @@ Frog.prototype.step = function(dt) {
       this.vx = 0;
 
       if(this.jumping === 1) {
-        /*if (this.frame > 1/5) {
-          this.frame -= 1/5;
-          this.frame++;
-        }*/
-        //this.jumping = 0;
         this.frame = Math.floor(this.subFrame++);
         if(this.subFrame > 6) {
           this.subFrame = 0;
@@ -191,10 +223,6 @@ Frog.prototype.step = function(dt) {
         }
       } 
 };
-
-
-
-
 
 //Car
 
@@ -278,7 +306,6 @@ Turtle.prototype.step = function(dt) {
 };
 
 //WATER
-//mirar lo de las medias
 var Water = function() {
   this.y = 48;
   this.x = 0;
@@ -333,7 +360,7 @@ var Home = function() {
   this.x = 0;
   this.y = 0;
   this.w = Game.width;
-  this.h = 40;  //intentar que sea 48, como una casilla normal
+  this.h = 40;  
   this.zIndex = 0;
   this.t = 0;
 
@@ -344,9 +371,7 @@ Home.prototype.step = function(dt) {
   var col = this.board.collide(this, FROG);
   if (col && col.type === FROG) {
       this.t += dt;
-      if (this.t >= 0.15) {  //probar con otros numeros 
-        //arreglar lo de la rana
-      //mide el tiempo al que tiene que reaccionar el objeto aunque de llegada
+      if (this.t >= 0.15) { 
           this.board.remove(col);
           winGame();
       }
